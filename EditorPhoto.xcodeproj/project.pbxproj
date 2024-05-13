@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		17A89F9A2BF204DE00DC436E /* EditorPhotoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */; };
-		17A89F9C2BF204DE00DC436E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A89F9B2BF204DE00DC436E /* ContentView.swift */; };
+		17A89F9C2BF204DE00DC436E /* LogintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A89F9B2BF204DE00DC436E /* LogintView.swift */; };
 		17A89F9E2BF204E000DC436E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17A89F9D2BF204E000DC436E /* Assets.xcassets */; };
 		17A89FA12BF204E000DC436E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17A89FA02BF204E000DC436E /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		17A89F962BF204DE00DC436E /* EditorPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EditorPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPhotoApp.swift; sourceTree = "<group>"; };
-		17A89F9B2BF204DE00DC436E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		17A89F9B2BF204DE00DC436E /* LogintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogintView.swift; sourceTree = "<group>"; };
 		17A89F9D2BF204E000DC436E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17A89FA02BF204E000DC436E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,8 +51,8 @@
 		17A89F982BF204DE00DC436E /* EditorPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				17E668C92BF20673009E2638 /* LoginModule */,
 				17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */,
-				17A89F9B2BF204DE00DC436E /* ContentView.swift */,
 				17A89F9D2BF204E000DC436E /* Assets.xcassets */,
 				17A89F9F2BF204E000DC436E /* Preview Content */,
 			);
@@ -65,6 +65,14 @@
 				17A89FA02BF204E000DC436E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		17E668C92BF20673009E2638 /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				17A89F9B2BF204DE00DC436E /* LogintView.swift */,
+			);
+			path = LoginModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17A89F9C2BF204DE00DC436E /* ContentView.swift in Sources */,
+				17A89F9C2BF204DE00DC436E /* LogintView.swift in Sources */,
 				17A89F9A2BF204DE00DC436E /* EditorPhotoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,8 +286,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -287,9 +296,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.salakhovilfat.EditorPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -307,8 +320,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,9 +330,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.salakhovilfat.EditorPhoto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
