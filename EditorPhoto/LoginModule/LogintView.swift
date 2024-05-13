@@ -49,7 +49,7 @@ struct LoginView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 
                 Button("Войти") {
-                    
+                    viewModel.signInWithEmail()
                 }
                 .bold()
                 .foregroundColor(.white)

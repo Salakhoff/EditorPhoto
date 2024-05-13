@@ -41,6 +41,16 @@ final class LoginViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func signInWithEmail() {
+        Task {
+            do {
+                try await AuthService.shared.registerWithEmail(email: email, password: password)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     var conformEmail: String {
         return isEmailValid ?
         ""
