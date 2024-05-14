@@ -44,7 +44,6 @@ final class AuthService {
                 do {
                     let result = try await self.auth.signIn(withEmail: email, password: password)
                     self.currentUser = result.user
-                    
                     promise(.success(()))
                 } catch {
                     promise(.failure(error))

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Firebase
 
 final class ForgotPasswordViewModel: ObservableObject {
     
@@ -29,8 +30,8 @@ final class ForgotPasswordViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    self.isShowError = true
                     self.localizedError = error.localizedDescription
+                    self.isShowError = true
                 case .finished:
                     break
                 }
@@ -49,11 +50,16 @@ final class ForgotPasswordViewModel: ObservableObject {
             .flatMap { _ in
                 AuthService.shared.resetPassword(email: self.email)
             }
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
+                    if let authError = error as? AppAuthError {
+                        self.localizedError = authError.localizedDescription
+                    } else {
+                        self.localizedError = error.localizedDescription
+                    }
                     self.isShowError = true
-                    self.localizedError = error.localizedDescription
                 case .finished:
                     self.isSuccessfulCompletion = true
                 }

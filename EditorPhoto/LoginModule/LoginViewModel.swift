@@ -14,7 +14,6 @@ final class LoginViewModel: ObservableObject {
     
     @Published var email = ""
     @Published var password = ""
-    @Published var resetPassword = ""
     @Published var isShowPassword = false
     @Published var isShowRegistration = false
     @Published var isShowResetPassword = false
@@ -73,10 +72,15 @@ final class LoginViewModel: ObservableObject {
             .flatMap { _ in
                 AuthService.shared.signInWithEmail(email: self.email, password: self.password)
             }
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    self.localizedError = error.localizedDescription
+                    if let authError = error as? AppAuthError {
+                        self.localizedError = authError.localizedDescription
+                    } else {
+                        self.localizedError = error.localizedDescription
+                    }
                     self.isShowError = true
                 case .finished:
                     break

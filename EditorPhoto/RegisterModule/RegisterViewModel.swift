@@ -19,6 +19,7 @@ final class RegisterViewModel: ObservableObject {
     @Published var isShowPassword = false
     @Published var isShowPasswordCheck = false
     @Published var isShowError = false
+    @Published var isSuccessfulCompletion = false
     
     // MARK: Private Properties
     
@@ -32,8 +33,8 @@ final class RegisterViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    self.isShowError = true
                     self.localizedError = error.localizedDescription
+                    self.isShowError = true
                 case .finished:
                     break
                 }
@@ -60,13 +61,18 @@ final class RegisterViewModel: ObservableObject {
             .flatMap { _ in
                 AuthService.shared.registerWithEmail(email: self.email, password: self.password)
             }
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
+                    if let authError = error as? AppAuthError {
+                        self.localizedError = authError.localizedDescription
+                    } else {
+                        self.localizedError = error.localizedDescription
+                    }
                     self.isShowError = true
-                    self.localizedError = error.localizedDescription
                 case .finished:
-                    break
+                    self.isSuccessfulCompletion = true
                 }
             } receiveValue: { _ in }
             .store(in: &cancellables)

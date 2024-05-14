@@ -125,9 +125,9 @@
 		17A89F982BF204DE00DC436E /* EditorPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				173A20832BF39A0B0015B275 /* ForgorPasswordModule */,
 				17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */,
 				17E668C92BF20673009E2638 /* LoginModule */,
+				173A20832BF39A0B0015B275 /* ForgorPasswordModule */,
 				173A20762BF32EE60015B275 /* RegisterModule */,
 				173A20712BF326770015B275 /* HomeModule */,
 				173A20792BF331910015B275 /* Utils */,
@@ -153,16 +153,8 @@
 			children = (
 				17A89F9B2BF204DE00DC436E /* LogintView.swift */,
 				17E668CC2BF207F9009E2638 /* LoginViewModel.swift */,
-				17E668CE2BF2145C009E2638 /* Views */,
 			);
 			path = LoginModule;
-			sourceTree = "<group>";
-		};
-		17E668CE2BF2145C009E2638 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		17E668E02BF255EA009E2638 /* Services */ = {

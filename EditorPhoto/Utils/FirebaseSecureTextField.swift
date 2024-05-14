@@ -27,6 +27,7 @@ struct FirebaseSecureTextField: View {
                             .contentTransition(.symbolEffect)
                             .foregroundColor(.black)
                     }
+                    .keyboardShortcut(.defaultAction)
                 }
         } else {
             SecureField(placeholder, text: $text)
@@ -50,6 +51,7 @@ struct FirebaseSecureTextField: View {
                             .contentTransition(.symbolEffect)
                             .foregroundColor(.black)
                     }
+                    .keyboardShortcut(.defaultAction)
                 }
         }
     }
