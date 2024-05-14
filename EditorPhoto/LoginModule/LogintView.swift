@@ -93,7 +93,7 @@ struct LoginView: View {
                 RegisterView()
             }
             .sheet(isPresented: $viewModel.isShowResetPassword) {
-                ForgotPasswordView(viewModel: viewModel)
+                ForgotPasswordView()
             }
             .alert("Ошибка!",
                    isPresented: $viewModel.isShowError) {

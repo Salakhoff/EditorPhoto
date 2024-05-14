@@ -68,17 +68,6 @@ final class LoginViewModel: ObservableObject {
         .eraseToAnyPublisher()
     }
     
-    func validateForgotPasswordForm() -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { promise in
-            if !self.resetPassword.isValidEmail() {
-                promise(.failure(AppAuthError.invalidEmail))
-            } else {
-                promise(.success(()))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
     func signInWithEmail() {
         validateLoginForm()
             .flatMap { _ in
@@ -89,23 +78,6 @@ final class LoginViewModel: ObservableObject {
                 case .failure(let error):
                     self.localizedError = error.localizedDescription
                     self.isShowError = true
-                case .finished:
-                    break
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
-    }
-    
-    func forgotPassword() {
-        validateForgotPasswordForm()
-            .flatMap { _ in
-                AuthService.shared.resetPassword(email: self.email)
-            }
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    self.isShowError = true
-                    self.localizedError = error.localizedDescription
                 case .finished:
                     break
                 }
