@@ -14,26 +14,16 @@ struct RegisterView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Создать новый аккаунт")
-                    .font(.title2)
-                    .bold()
-                
-                Spacer()
-                
-                Button(role: .cancel) {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                        .imageScale(.large)
-                        .foregroundColor(Color(uiColor: .label))
-                }
-            }
-            
+            Text("Создать новый аккаунт")
+                .font(.title2)
+                .bold()
+    
             FirebaseTextField(
                 placeholder: "Эл.почта",
                 text: $viewModel.email
             )
+            .textContentType(.emailAddress)
+            .keyboardType(.emailAddress)
             
             FirebaseSecureTextField(
                 placeholder: "Пароль",

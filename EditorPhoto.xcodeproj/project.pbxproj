@@ -13,6 +13,7 @@
 		173A20752BF32D3F0015B275 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A20742BF32D3F0015B275 /* RegisterView.swift */; };
 		173A20782BF32EFD0015B275 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A20772BF32EFD0015B275 /* RegisterViewModel.swift */; };
 		173A207C2BF33AC60015B275 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A207B2BF33AC60015B275 /* ForgotPasswordView.swift */; };
+		173A20822BF370770015B275 /* FocusableField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A20812BF370770015B275 /* FocusableField.swift */; };
 		17A89F9A2BF204DE00DC436E /* EditorPhotoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */; };
 		17A89F9C2BF204DE00DC436E /* LogintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A89F9B2BF204DE00DC436E /* LogintView.swift */; };
 		17A89F9E2BF204E000DC436E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17A89F9D2BF204E000DC436E /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		173A20742BF32D3F0015B275 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		173A20772BF32EFD0015B275 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		173A207B2BF33AC60015B275 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		173A20812BF370770015B275 /* FocusableField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusableField.swift; sourceTree = "<group>"; };
 		17A89F962BF204DE00DC436E /* EditorPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EditorPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPhotoApp.swift; sourceTree = "<group>"; };
 		17A89F9B2BF204DE00DC436E /* LogintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogintView.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			children = (
 				17E668CF2BF21468009E2638 /* FirebaseTextField.swift */,
 				17E668D72BF24998009E2638 /* FirebaseSecureTextField.swift */,
+				173A20812BF370770015B275 /* FocusableField.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				17E668D82BF24998009E2638 /* FirebaseSecureTextField.swift in Sources */,
 				173A20782BF32EFD0015B275 /* RegisterViewModel.swift in Sources */,
 				173A20702BF323870015B275 /* AppAuthError.swift in Sources */,
+				173A20822BF370770015B275 /* FocusableField.swift in Sources */,
 				173A206E2BF322C70015B275 /* String + Extension.swift in Sources */,
 				17E668D02BF21468009E2638 /* FirebaseTextField.swift in Sources */,
 				17E668E22BF256A3009E2638 /* AuthService.swift in Sources */,

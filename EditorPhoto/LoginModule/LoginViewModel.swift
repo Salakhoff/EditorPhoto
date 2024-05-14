@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class LoginViewModel: ObservableObject {
     
@@ -18,54 +19,97 @@ final class LoginViewModel: ObservableObject {
     @Published var isShowRegistration = false
     @Published var isShowResetPassword = false
     @Published var isShowError = false
-    var localizedError = ""
+    @Published var localizedError = ""
     
-    // MARK: - Methods
+    // MARK: Private Properties
     
-    func validateLoginForm() throws {
-        if !email.isValidEmail() {
-            throw AppAuthError.invalidEmail
-        } else if !password.isValidPassword() {
-            throw AppAuthError.invalidPassword
-        }
+    private var cancellables: Set<AnyCancellable> = []
+    
+    // MARK: Init
+    
+    init() {
+        isFormValidPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    self.isShowError = true
+                    self.localizedError = error.localizedDescription
+                case .finished:
+                    break
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
     }
     
-    func validateForgotPasswordForm() throws {
-        if !resetPassword.isValidEmail() {
-            throw AppAuthError.invalidEmail
+    private var isFormValidPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest(
+            $email,
+            $password
+        )
+        .map { email, password in
+            return email.isValidEmail() && password.isValidPassword()
         }
+        .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Methods
+
+    func validateLoginForm() -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { promise in
+            if !self.email.isValidEmail() {
+                promise(.failure(AppAuthError.invalidEmail))
+            } else if !self.password.isValidPassword() {
+                promise(.failure(AppAuthError.invalidPassword))
+            } else {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func validateForgotPasswordForm() -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { promise in
+            if !self.resetPassword.isValidEmail() {
+                promise(.failure(AppAuthError.invalidEmail))
+            } else {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
     }
     
     func signInWithEmail() {
-        Task {
-            do {
-                try await AuthService.shared.signInWithEmail(
-                    email: email,
-                    password: password
-                )
-            } catch let error as AppAuthError {
-                isShowError = true
-                localizedError = error.localizedDescription
-            } catch {
-                print(error.localizedDescription)
+        validateLoginForm()
+            .flatMap { _ in
+                AuthService.shared.signInWithEmail(email: self.email, password: self.password)
             }
-        }
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    self.localizedError = error.localizedDescription
+                    self.isShowError = true
+                case .finished:
+                    break
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
     }
     
     func forgotPassword() {
-        Task {
-            do {
-                try validateForgotPasswordForm()
-                try await AuthService.shared.resetPassword(
-                    email: resetPassword
-                )
-            } catch let error as AppAuthError {
-                isShowError = true
-                localizedError = error.localizedDescription
-            } catch {
-                isShowError = true
-                print(error.localizedDescription)
+        validateForgotPasswordForm()
+            .flatMap { _ in
+                AuthService.shared.resetPassword(email: self.email)
             }
-        }
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    self.isShowError = true
+                    self.localizedError = error.localizedDescription
+                case .finished:
+                    break
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
     }
 }

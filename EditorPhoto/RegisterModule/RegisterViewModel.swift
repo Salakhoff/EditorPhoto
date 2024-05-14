@@ -6,40 +6,85 @@
 //
 
 import Foundation
+import Combine
 
 final class RegisterViewModel: ObservableObject {
+    
+    // MARK: Published
+    
     @Published var email = ""
     @Published var password = ""
-    @Published var isShowPassword = false
     @Published var passwordCheck = ""
+    @Published var localizedError: String = ""
+    @Published var isShowPassword = false
     @Published var isShowPasswordCheck = false
     @Published var isShowError = false
-    var localizedError: String = ""
     
-    func registerWithEmail() {
-        Task {
-            do {
-                try await AuthService.shared.registerWithEmail(
-                    email: email,
-                    password: password
-                )
-            } catch let error as AppAuthError {
-                isShowError = true
-                localizedError = error.localizedDescription
-            } catch {
-                isShowError = true
-                print(error.localizedDescription)
-            }
-        }
+    // MARK: Private Properties
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    // MARK: Init
+    
+    init() {
+        isFormValidPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    self.isShowError = true
+                    self.localizedError = error.localizedDescription
+                case .finished:
+                    break
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
     }
     
-    func validateForm() throws {
-        if !email.isValidEmail() {
-            throw AppAuthError.invalidEmail
-        } else if !password.isValidPassword() || !passwordCheck.isValidPassword() {
-            throw AppAuthError.invalidPassword
-        } else if password != passwordCheck {
-            throw AppAuthError.passwordDoNotMatch
+    private var isFormValidPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest3(
+            $email,
+            $password,
+            $passwordCheck
+        )
+        .map { email, password, passwordCheck in
+            email.isValidEmail() &&
+            password.isValidPassword() &&
+            passwordCheck == password
         }
+        .eraseToAnyPublisher()
+    }
+    
+    func registerWithEmail() {
+        validateForm()
+            .flatMap { _ in
+                AuthService.shared.registerWithEmail(email: self.email, password: self.password)
+            }
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    self.isShowError = true
+                    self.localizedError = error.localizedDescription
+                case .finished:
+                    break
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
+    }
+    
+    func validateForm() -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self else { return }
+            if !email.isValidEmail() {
+                promise(.failure(AppAuthError.invalidEmail))
+            } else if !password.isValidPassword() || !passwordCheck.isValidPassword() {
+                promise(.failure(AppAuthError.invalidPassword))
+            } else if password != passwordCheck {
+                promise(.failure(AppAuthError.passwordDoNotMatch))
+            } else {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }

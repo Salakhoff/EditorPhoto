@@ -15,7 +15,7 @@ struct FirebaseSecureTextField: View {
     
     var body: some View {
         if showPassword {
-            FirebaseTextField(placeholder: "Пароль", text: $text)
+            FirebaseTextField(placeholder: placeholder, text: $text)
                 .overlay(alignment: .trailing) {
                     Button(role: .cancel) {
                         withAnimation(.snappy) {

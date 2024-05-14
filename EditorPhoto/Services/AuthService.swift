@@ -7,8 +7,10 @@
 
 import Foundation
 import FirebaseAuth
+import Combine
 
-@Observable final class AuthService {
+@Observable
+final class AuthService {
     
     static let shared = AuthService()
     
@@ -19,82 +21,64 @@ import FirebaseAuth
         currentUser = auth.currentUser
     }
     
-    func registerWithEmail(email: String, password: String) async throws {
-        do {
-            try await auth.createUser(withEmail: email, password: password)
-            currentUser = nil
-        } catch {
-            let error = error as NSError
-            switch error.code {
-            case AuthErrorCode.emailAlreadyInUse.rawValue:
-                throw AppAuthError.emailAlreadyInUse
-            case AuthErrorCode.invalidEmail.rawValue:
-                throw AppAuthError.invalidEmail
-            case AuthErrorCode.wrongPassword.rawValue:
-                throw AppAuthError.wrongPassword
-            case AuthErrorCode.tooManyRequests.rawValue:
-                throw AppAuthError.tooManyRequests
-            case AuthErrorCode.userNotFound.rawValue:
-                throw AppAuthError.userNotFound
-            case AuthErrorCode.networkError.rawValue:
-                throw AppAuthError.networkError
-            default:
-                throw AppAuthError.networkError
+    func registerWithEmail(email: String, password: String) -> AnyPublisher<Void, Error> {
+        return Future { [weak self] promise in
+            guard let self else { return }
+            Task {
+                do {
+                    try await self.auth.createUser(withEmail: email, password: password)
+                    self.currentUser = nil
+                    promise(.success(()))
+                } catch {
+                    promise(.failure(error))
+                }
             }
         }
+        .eraseToAnyPublisher()
     }
     
-    func signInWithEmail(email: String, password: String) async throws {
-        do {
-            let result = try await auth.signIn(withEmail: email, password: password)
-            currentUser = result.user
-        } catch {
-            let error = error as NSError
-            switch error.code {
-            case AuthErrorCode.emailAlreadyInUse.rawValue:
-                throw AppAuthError.emailAlreadyInUse
-            case AuthErrorCode.invalidEmail.rawValue:
-                throw AppAuthError.invalidEmail
-            case AuthErrorCode.wrongPassword.rawValue:
-                throw AppAuthError.wrongPassword
-            case AuthErrorCode.tooManyRequests.rawValue:
-                throw AppAuthError.tooManyRequests
-            case AuthErrorCode.userNotFound.rawValue:
-                throw AppAuthError.userNotFound
-            case AuthErrorCode.networkError.rawValue:
-                throw AppAuthError.networkError
-            default:
-                throw AppAuthError.networkError
+    func signInWithEmail(email: String, password: String) -> AnyPublisher<Void, Error> {
+        return Future { [weak self] promise in
+            guard let self else { return }
+            Task {
+                do {
+                    let result = try await self.auth.signIn(withEmail: email, password: password)
+                    self.currentUser = result.user
+                    
+                    promise(.success(()))
+                } catch {
+                    promise(.failure(error))
+                }
             }
         }
+        .eraseToAnyPublisher()
     }
     
-    func signOut() throws {
-        try auth.signOut()
-        currentUser = nil
-    }
-    
-    func resetPassword(email: String) async throws {
-        do {
-            try await auth.sendPasswordReset(withEmail: email)
-        } catch {
-            let error = error as NSError
-            switch error.code {
-            case AuthErrorCode.emailAlreadyInUse.rawValue:
-                throw AppAuthError.emailAlreadyInUse
-            case AuthErrorCode.invalidEmail.rawValue:
-                throw AppAuthError.invalidEmail
-            case AuthErrorCode.wrongPassword.rawValue:
-                throw AppAuthError.wrongPassword
-            case AuthErrorCode.tooManyRequests.rawValue:
-                throw AppAuthError.tooManyRequests
-            case AuthErrorCode.userNotFound.rawValue:
-                throw AppAuthError.userNotFound
-            case AuthErrorCode.networkError.rawValue:
-                throw AppAuthError.networkError
-            default:
-                throw AppAuthError.networkError
+    func signOut() -> AnyPublisher<Void, Error> {
+        return Future { promise in
+            do {
+                try self.auth.signOut()
+                self.currentUser = nil
+                promise(.success(()))
+            } catch {
+                promise(.failure(error))
             }
         }
+        .eraseToAnyPublisher()
+    }
+    
+    func resetPassword(email: String) -> AnyPublisher<Void, Error> {
+        return Future { [weak self] promise in
+            guard let self else { return }
+            Task {
+                do {
+                    try await self.auth.sendPasswordReset(withEmail: email)
+                    promise(.success(()))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }

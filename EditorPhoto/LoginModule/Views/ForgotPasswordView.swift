@@ -14,26 +14,16 @@ struct ForgotPasswordView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Восстановить пароль")
-                    .font(.title2)
-                    .bold()
-                
-                Spacer()
-                
-                Button(role: .cancel) {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                        .imageScale(.large)
-                        .foregroundColor(Color(uiColor: .label))
-                }
-            }
+            Text("Восстановить пароль")
+                .font(.title2)
+                .bold()
             
             FirebaseTextField(
                 placeholder: "Эл.почта",
                 text: $viewModel.resetPassword
             )
+            .textContentType(.emailAddress)
+            .keyboardType(.emailAddress)
             
             Button {
                 viewModel.forgotPassword()
