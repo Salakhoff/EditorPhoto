@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 final class LoginViewModel: ObservableObject {
     
@@ -14,79 +13,59 @@ final class LoginViewModel: ObservableObject {
     
     @Published var email = ""
     @Published var password = ""
+    @Published var resetPassword = ""
     @Published var isShowPassword = false
-    @Published var isShowingPasswordReset = false
-    @Published var isEmailValid = false
-    @Published var isPasswordValid = false
-    @Published var canSubmit = false
+    @Published var isShowRegistration = false
+    @Published var isShowResetPassword = false
+    @Published var isShowError = false
+    var localizedError = ""
     
-    var cancellables = Set<AnyCancellable>()
+    // MARK: - Methods
     
-    init() {
-        $email
-            .map { $0.isValidEmail() }
-            .assign(to: \.isEmailValid, on: self)
-            .store(in: &cancellables)
-        
-        $password
-            .map { $0.isValidPassword() }
-            .assign(to: \.isPasswordValid, on: self)
-            .store(in: &cancellables)
-        
-        Publishers.CombineLatest($isEmailValid, $isPasswordValid)
-            .map { isEmailValid, isPasswordValid in
-                return (isEmailValid && isPasswordValid)
-            }
-            .assign(to: \.canSubmit, on: self)
-            .store(in: &cancellables)
+    func validateLoginForm() throws {
+        if !email.isValidEmail() {
+            throw AppAuthError.invalidEmail
+        } else if !password.isValidPassword() {
+            throw AppAuthError.invalidPassword
+        }
+    }
+    
+    func validateForgotPasswordForm() throws {
+        if !resetPassword.isValidEmail() {
+            throw AppAuthError.invalidEmail
+        }
     }
     
     func signInWithEmail() {
         Task {
             do {
-                try await AuthService.shared.registerWithEmail(email: email, password: password)
+                try await AuthService.shared.signInWithEmail(
+                    email: email,
+                    password: password
+                )
+            } catch let error as AppAuthError {
+                isShowError = true
+                localizedError = error.localizedDescription
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
     
-    var conformEmail: String {
-        return isEmailValid ?
-        ""
-        :
-        "Введите корректный адрес электронной почты"
-    }
-    
-    var conformPassword: String {
-        return isPasswordValid ?
-        ""
-        :
-        "Пароль содержать минимум 8 символов, включая хотя бы 1 заглавную букву, 1 строчную букву, 1 цифру и 1 специальный символ."
-    }
-    
-    func login() {
-        print("Пробуем войти")
-        email = ""
-        password = ""
-    }
-    
-    func resetPassword() {
-        print("Восстановим пароль")
-    }
-}
-
-extension String {
-    func isValidEmail() -> Bool {
-        let emailPredicate = NSPredicate(
-            format: "SELF MATCHES %@",
-            "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
-        )
-        return emailPredicate.evaluate(with: self)
-    }
-    
-    func isValidPassword() -> Bool {
-        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[d$@$!%*?&#])[A-Za-z\\dd$@$!%*?&#]{8,}")
-        return passwordPredicate.evaluate(with: self)
+    func forgotPassword() {
+        Task {
+            do {
+                try validateForgotPasswordForm()
+                try await AuthService.shared.resetPassword(
+                    email: resetPassword
+                )
+            } catch let error as AppAuthError {
+                isShowError = true
+                localizedError = error.localizedDescription
+            } catch {
+                isShowError = true
+                print(error.localizedDescription)
+            }
+        }
     }
 }

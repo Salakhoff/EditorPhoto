@@ -41,7 +41,7 @@ struct LoginView: View {
                 )
                 
                 Button("Забыли пароль?") {
-                    
+                    viewModel.isShowResetPassword = true
                 }
                 .foregroundColor(.black)
                 .bold()
@@ -60,13 +60,15 @@ struct LoginView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.blue)
                 )
-            }.padding()
+            }
+            .padding()
             
             Spacer()
             
             VStack {
                 Text("У вас нет аккаунта?")
                 Button("Зарегистрироваться") {
+                    viewModel.isShowRegistration = true
                 }
                 .bold()
                 .foregroundColor(.black)
@@ -76,12 +78,32 @@ struct LoginView: View {
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.ultraThinMaterial)
-                        .stroke(.primary, style: StrokeStyle(lineWidth: 1)
-                               )
+                        .stroke(
+                            .primary,
+                            style: StrokeStyle(lineWidth: 1)
+                        )
                 )
             }
             .padding(.horizontal)
             .padding(.bottom)
+            .sheet(isPresented: $viewModel.isShowRegistration) {
+                RegisterView()
+                    .presentationDetents([.fraction(0.5)])
+            }
+            .sheet(isPresented: $viewModel.isShowResetPassword) {
+                ForgotPasswordView(viewModel: viewModel)
+                    .presentationDetents([.fraction(0.3)])
+            }
+            .alert("Ошибка!",
+                   isPresented: $viewModel.isShowError) {
+                Button {
+                    viewModel.isShowError = false
+                } label: {
+                    Text("OK")
+                }
+            } message: {
+                Text(viewModel.localizedError)
+            }
         }
         
         .frame(maxHeight: .infinity, alignment: .top)

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		173A206E2BF322C70015B275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A206D2BF322C70015B275 /* String + Extension.swift */; };
+		173A20702BF323870015B275 /* AppAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A206F2BF323870015B275 /* AppAuthError.swift */; };
+		173A20732BF326840015B275 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A20722BF326840015B275 /* HomeView.swift */; };
+		173A20752BF32D3F0015B275 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A20742BF32D3F0015B275 /* RegisterView.swift */; };
+		173A20782BF32EFD0015B275 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A20772BF32EFD0015B275 /* RegisterViewModel.swift */; };
+		173A207C2BF33AC60015B275 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A207B2BF33AC60015B275 /* ForgotPasswordView.swift */; };
 		17A89F9A2BF204DE00DC436E /* EditorPhotoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */; };
 		17A89F9C2BF204DE00DC436E /* LogintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A89F9B2BF204DE00DC436E /* LogintView.swift */; };
 		17A89F9E2BF204E000DC436E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17A89F9D2BF204E000DC436E /* Assets.xcassets */; };
@@ -21,6 +27,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		173A206D2BF322C70015B275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
+		173A206F2BF323870015B275 /* AppAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthError.swift; sourceTree = "<group>"; };
+		173A20722BF326840015B275 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		173A20742BF32D3F0015B275 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		173A20772BF32EFD0015B275 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		173A207B2BF33AC60015B275 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		17A89F962BF204DE00DC436E /* EditorPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EditorPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPhotoApp.swift; sourceTree = "<group>"; };
 		17A89F9B2BF204DE00DC436E /* LogintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogintView.swift; sourceTree = "<group>"; };
@@ -46,6 +58,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		173A206C2BF322B30015B275 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				173A206D2BF322C70015B275 /* String + Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		173A20712BF326770015B275 /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				173A20722BF326840015B275 /* HomeView.swift */,
+			);
+			path = HomeModule;
+			sourceTree = "<group>";
+		};
+		173A20762BF32EE60015B275 /* RegisterModule */ = {
+			isa = PBXGroup;
+			children = (
+				173A20742BF32D3F0015B275 /* RegisterView.swift */,
+				173A20772BF32EFD0015B275 /* RegisterViewModel.swift */,
+			);
+			path = RegisterModule;
+			sourceTree = "<group>";
+		};
+		173A20792BF331910015B275 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				17E668CF2BF21468009E2638 /* FirebaseTextField.swift */,
+				17E668D72BF24998009E2638 /* FirebaseSecureTextField.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		17A89F8D2BF204DE00DC436E = {
 			isa = PBXGroup;
 			children = (
@@ -65,10 +111,14 @@
 		17A89F982BF204DE00DC436E /* EditorPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */,
 				17E668C92BF20673009E2638 /* LoginModule */,
+				173A20762BF32EE60015B275 /* RegisterModule */,
+				173A20712BF326770015B275 /* HomeModule */,
+				173A20792BF331910015B275 /* Utils */,
+				173A206C2BF322B30015B275 /* Extensions */,
 				17E668E02BF255EA009E2638 /* Services */,
 				17A89F9F2BF204E000DC436E /* Preview Content */,
-				17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */,
 				17E668D92BF253BE009E2638 /* GoogleService-Info.plist */,
 				17A89F9D2BF204E000DC436E /* Assets.xcassets */,
 			);
@@ -96,8 +146,7 @@
 		17E668CE2BF2145C009E2638 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				17E668D72BF24998009E2638 /* FirebaseSecureTextField.swift */,
-				17E668CF2BF21468009E2638 /* FirebaseTextField.swift */,
+				173A207B2BF33AC60015B275 /* ForgotPasswordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -106,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				17E668E12BF256A3009E2638 /* AuthService.swift */,
+				173A206F2BF323870015B275 /* AppAuthError.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -188,11 +238,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				173A20752BF32D3F0015B275 /* RegisterView.swift in Sources */,
+				173A20732BF326840015B275 /* HomeView.swift in Sources */,
 				17A89F9C2BF204DE00DC436E /* LogintView.swift in Sources */,
 				17E668D82BF24998009E2638 /* FirebaseSecureTextField.swift in Sources */,
+				173A20782BF32EFD0015B275 /* RegisterViewModel.swift in Sources */,
+				173A20702BF323870015B275 /* AppAuthError.swift in Sources */,
+				173A206E2BF322C70015B275 /* String + Extension.swift in Sources */,
 				17E668D02BF21468009E2638 /* FirebaseTextField.swift in Sources */,
 				17E668E22BF256A3009E2638 /* AuthService.swift in Sources */,
 				17A89F9A2BF204DE00DC436E /* EditorPhotoApp.swift in Sources */,
+				173A207C2BF33AC60015B275 /* ForgotPasswordView.swift in Sources */,
 				17E668CD2BF207F9009E2638 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

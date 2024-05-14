@@ -17,7 +17,11 @@ struct EditorPhotoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            if AuthService.shared.currentUser != nil {
+                HomeView()
+            } else {
+                LoginView()
+            }
         }
     }
 }
