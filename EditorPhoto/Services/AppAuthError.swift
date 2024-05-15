@@ -91,163 +91,163 @@ enum AppAuthError: Error {
     var localizedDescription: String {
         switch self {
         case .invalidCustomToken:
-            return "Неверный пользовательский токен."
+            return "invalidCustomToken".localized
         case .customTokenMismatch:
-            return "Несоответствие пользовательского токена."
+            return "customTokenMismatch".localized
         case .invalidCredential:
-            return "Неверные учетные данные."
+            return "invalidCredential".localized
         case .userDisabled:
-            return "Пользователь отключен."
+            return "userDisabled".localized
         case .operationNotAllowed:
-            return "Операция не разрешена."
+            return "operationNotAllowed".localized
         case .emailAlreadyInUse:
-            return "Электронная почта уже используется."
+            return "emailAlreadyInUse".localized
         case .invalidEmail:
-            return "Неверный адрес электронной почты."
+            return "invalidEmail".localized
         case .wrongPassword:
-            return "Неверный пароль."
+            return "wrongPassword".localized
         case .tooManyRequests:
-            return "Слишком много запросов."
+            return "tooManyRequests".localized
         case .userNotFound:
-            return "Пользователь не найден."
+            return "userNotFound".localized
         case .accountExistsWithDifferentCredential:
-            return "Учетная запись с другими учетными данными уже существует."
+            return "accountExistsWithDifferentCredential".localized
         case .requiresRecentLogin:
-            return "Требуется повторная аутентификация."
+            return "requiresRecentLogin".localized
         case .providerAlreadyLinked:
-            return "Поставщик уже связан с аккаунтом."
+            return "providerAlreadyLinked".localized
         case .noSuchProvider:
-            return "Поставщик не найден."
+            return "noSuchProvider".localized
         case .invalidUserToken:
-            return "Неверный пользовательский токен."
+            return "invalidUserToken".localized
         case .networkError:
-            return "Сетевая ошибка."
+            return "networkError".localized
         case .userTokenExpired:
-            return "Срок действия пользовательского токена истек."
+            return "userTokenExpired".localized
         case .invalidAPIKey:
-            return "Неверный API-ключ."
+            return "invalidAPIKey".localized
         case .userMismatch:
-            return "Несоответствие пользователей."
+            return "userMismatch".localized
         case .credentialAlreadyInUse:
-            return "Учетные данные уже используются."
+            return "credentialAlreadyInUse".localized
         case .weakPassword:
-            return "Слабый пароль."
+            return "weakPassword".localized
         case .appNotAuthorized:
-            return "Приложение не авторизовано."
+            return "appNotAuthorized".localized
         case .expiredActionCode:
-            return "Срок действия кода истек."
+            return "expiredActionCode".localized
         case .invalidActionCode:
-            return "Неверный код действия."
+            return "invalidActionCode".localized
         case .invalidMessagePayload:
-            return "Неверная структура сообщения."
+            return "invalidMessagePayload".localized
         case .invalidSender:
-            return "Неверный отправитель."
+            return "invalidSender".localized
         case .invalidRecipientEmail:
-            return "Неверный адрес получателя электронной почты."
+            return "invalidRecipientEmail".localized
         case .missingEmail:
-            return "Отсутствует адрес электронной почты."
+            return "missingEmail".localized
         case .missingIosBundleID:
-            return "Отсутствует идентификатор пакета iOS."
+            return "missingIosBundleID".localized
         case .missingAndroidPackageName:
-            return "Отсутствует название пакета Android."
+            return "missingAndroidPackageName".localized
         case .unauthorizedDomain:
-            return "Неавторизованный домен."
+            return "unauthorizedDomain".localized
         case .invalidContinueURI:
-            return "Неверный URI продолжения."
+            return "invalidContinueURI".localized
         case .missingContinueURI:
-            return "Отсутствует URI продолжения."
+            return "missingContinueURI".localized
         case .missingPhoneNumber:
-            return "Отсутствует номер телефона."
+            return "missingPhoneNumber".localized
         case .invalidPhoneNumber:
-            return "Неверный номер телефона."
+            return "invalidPhoneNumber".localized
         case .missingVerificationCode:
-            return "Отсутствует код проверки."
+            return "missingVerificationCode".localized
         case .invalidVerificationCode:
-            return "Неверный код проверки."
+            return "invalidVerificationCode".localized
         case .missingVerificationID:
-            return "Отсутствует идентификатор проверки."
+            return "missingVerificationID".localized
         case .invalidVerificationID:
-            return "Неверный идентификатор проверки."
+            return "invalidVerificationID".localized
         case .missingAppCredential:
-            return "Отсутствуют учетные данные приложения."
+            return "missingAppCredential".localized
         case .invalidAppCredential:
-            return "Неверные учетные данные приложения."
+            return "invalidAppCredential".localized
         case .sessionExpired:
-            return "Сеанс истек."
+            return "sessionExpired".localized
         case .quotaExceeded:
-            return "Превышен лимит."
+            return "quotaExceeded".localized
         case .missingAppToken:
-            return "Отсутствует токен приложения."
+            return "missingAppToken".localized
         case .notificationNotForwarded:
-            return "Уведомление не перенаправлено."
+            return "notificationNotForwarded".localized
         case .appNotVerified:
-            return "Приложение не подтверждено."
+            return "appNotVerified".localized
         case .captchaCheckFailed:
-            return "Проверка капчи не пройдена."
+            return "captchaCheckFailed".localized
         case .webContextAlreadyPresented:
-            return "Контекст веб-приложения уже представлен."
+            return "webContextAlreadyPresented".localized
         case .webContextCancelled:
-            return "Контекст веб-приложения отменен."
+            return "webContextCancelled".localized
         case .appVerificationUserInteractionFailure:
-            return "Ошибка взаимодействия пользователя с подтверждением приложения."
+            return "appVerificationUserInteractionFailure".localized
         case .invalidClientID:
-            return "Неверный идентификатор клиента."
+            return "invalidClientID".localized
         case .webNetworkRequestFailed:
-            return "Ошибка сетевого запроса веб-приложения."
+            return "webNetworkRequestFailed".localized
         case .webInternalError:
-            return "Внутренняя ошибка веб-приложения."
+            return "webInternalError".localized
         case .webSignInUserInteractionFailure:
-            return "Ошибка взаимодействия пользователя с входом в веб-приложение."
+            return "webSignInUserInteractionFailure".localized
         case .localPlayerNotAuthenticated:
-            return "Местный игрок не аутентифицирован."
+            return "localPlayerNotAuthenticated".localized
         case .nullUser:
-            return "Пустой пользователь."
+            return "nullUser".localized
         case .dynamicLinkNotActivated:
-            return "Динамическая ссылка не активирована."
+            return "dynamicLinkNotActivated".localized
         case .invalidProviderID:
-            return "Неверный идентификатор поставщика."
+            return "invalidProviderID".localized
         case .tenantIDMismatch:
-            return "Несоответствие идентификатора арендатора."
+            return "tenantIDMismatch".localized
         case .unsupportedTenantOperation:
-            return "Неподдерживаемая операция арендатора."
+            return "unsupportedTenantOperation".localized
         case .invalidDynamicLinkDomain:
-            return "Неверный домен динамической ссылки."
+            return "invalidDynamicLinkDomain".localized
         case .rejectedCredential:
-            return "Отклоненные учетные данные."
+            return "rejectedCredential".localized
         case .gameKitNotLinked:
-            return "GameKit не связан."
+            return "gameKitNotLinked".localized
         case .secondFactorRequired:
-            return "Требуется второй фактор."
-        case .invalidMultiFactorSession:
-            return "Неверная сессия многофакторной аутентификации."
-        case .multiFactorInfoNotFound:
-            return "Сведения о многофакторной аутентификации не найдены."
-        case .adminRestrictedOperation:
-            return "Операция ограничена администратором."
-        case .unverifiedEmail:
-            return "Непроверенная электронная почта."
-        case .secondFactorAlreadyEnrolled:
-            return "Второй фактор уже зарегистрирован."
-        case .maximumSecondFactorCountExceeded:
-            return "Превышено максимальное количество вторичных факторов"
-        case .unsupportedFirstFactor:
-            return "Неподдерживаемый первичный фактор."
-        case .emailChangeNeedsVerification:
-            return "Требуется подтверждение изменения адреса электронной почты."
-        case .missingClientIdentifier:
-            return "Отсутствует идентификатор клиента"
-        case .missingOrInvalidNonce:
-            return "Отсутствует или неверный nonce."
-        case .blockingCloudFunctionError:
-            return "Ошибка блокирующей"
+            return "secondFactorRequired".localized
         case .missingMultiFactorSession:
-            return "Отсутствует сессия многофакторной аутентификации."
+            return "missingMultiFactorSession".localized
         case .missingMultiFactorInfo:
-            return "Отсутствуют сведения о многофакторной аутентификации."
+            return "missingMultiFactorInfo".localized
+        case .invalidMultiFactorSession:
+            return "invalidMultiFactorSession".localized
+        case .multiFactorInfoNotFound:
+            return "multiFactorInfoNotFound".localized
+        case .adminRestrictedOperation:
+            return "adminRestrictedOperation".localized
+        case .unverifiedEmail:
+            return "unverifiedEmail".localized
+        case .secondFactorAlreadyEnrolled:
+            return "secondFactorAlreadyEnrolled".localized
+        case .maximumSecondFactorCountExceeded:
+            return "maximumSecondFactorCountExceeded".localized
+        case .unsupportedFirstFactor:
+            return "unsupportedFirstFactor".localized
+        case .emailChangeNeedsVerification:
+            return "emailChangeNeedsVerification".localized
+        case .missingClientIdentifier:
+            return "missingClientIdentifier".localized
+        case .missingOrInvalidNonce:
+            return "missingOrInvalidNonce".localized
+        case .blockingCloudFunctionError:
+            return "blockingCloudFunctionError".localized
         case .invalidPassword:
-            return "Пароль должен содержать минимум 8 символов, хотя бы одну букву и одну цифру."
+            return "invalidPassword".localized
         case .passwordDoNotMatch:
-            return "Пароли не совпадают."
+            return "passwordDoNotMatch".localized
         }
     }
 }

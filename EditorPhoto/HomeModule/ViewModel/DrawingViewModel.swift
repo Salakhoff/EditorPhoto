@@ -8,42 +8,61 @@
 import SwiftUI
 import PencilKit
 
-final class DrawingViewModel: ObservableObject {
-    @Published var showImagePicker = false
-    @Published var imageData: Data = Data(count: 0)
+class DrawingViewModel: ObservableObject {
+    
+    // MARK: Published
+    
     @Published var canvas = PKCanvasView()
     @Published var toolPicker = PKToolPicker()
+    @Published var imageData: Data = Data(count: 0)
     @Published var textBoxes: [TextBox] = []
-    @Published var addNewBox = false
-    @Published var currentIndex: Int = 0
     @Published var rect: CGRect = .zero
-    @Published var showAlert = false
-    @Published var message: String = ""
-    
-    
+    @Published var messageSaveImage: String = ""
+    @Published var messageExitProfile: String = ""
+    @Published var currentIndex: Int = 0
+    @Published var showImagePicker = false
+    @Published var showSuccessSaveAlert = false
+    @Published var showExitProfileAlret = false
+    @Published var showingAlert = false
+    @Published var addNewBox = false
+
+    /// Эта функция вызывается, когда пользователь полностью закончил работу с редактированием изображения и хочет вернуться к исходному состоянию.
     func cancelImageEditing() {
+        // Устанавливаем `imageData` в пустые данные. Это эффективно удаляет текущее изображение.
         imageData = Data(count: 0)
+        
+        // Создаем новый экземпляр `PKCanvasView`. Это сбрасывает текущее состояние холста.
         canvas = PKCanvasView()
+        
+        // Удаляем все текстовые блоки. Это удаляет все добавленные пользователем текстовые блоки.
         textBoxes.removeAll()
     }
     
+    /// Этот метод вызывается, когда пользователь закончил редактирование текстового блока и хочет отменить все изменения.
     func cancelTextView() {
+        // Устанавливаем `toolPicker` видимым и делаем `canvas` первым респондентом.
+        // Это позволяет пользователю продолжить рисование на холсте после отмены редактирования текстового блока.
         toolPicker.setVisible(true, forFirstResponder: canvas)
         canvas.becomeFirstResponder()
         
+        // С анимацией устанавливаем `addNewBox` в `false`.
+        // Это скрывает текстовое поле для редактирования.
         withAnimation {
             addNewBox = false
         }
         
+        // Если текущий текстовый блок не был добавлен (то есть он был только что создан, но не сохранен),
+        // удаляем его из массива `textBoxes`
+        //FIXME: Проблема с кнопкой.
         if !textBoxes[currentIndex].isAdded {
             textBoxes.removeLast()
         }
-        
     }
     
+    /// Метод `saveImage` используется для сохранения текущего состояния холста и текстовых блоков в изображение и сохранения этого изображения в фотоальбом устройства.
     func saveImage() {
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
-        
+        // Начинаем контекст изображения с определенными размерами и настройками.
         canvas.drawHierarchy(
             in: CGRect(
                 origin: .zero,
@@ -51,6 +70,7 @@ final class DrawingViewModel: ObservableObject {
             ), afterScreenUpdates: true
         )
         
+        // Создаем SwiftUI представление, которое содержит все текстовые блоки.
         let swiftUIView = ZStack {
             ForEach(textBoxes) { [self] box in
                 Text(
@@ -64,12 +84,15 @@ final class DrawingViewModel: ObservableObject {
             }
         }
         
+        // Создаем контроллер представления, который будет отображать наше SwiftUI представление.
         let controller = UIHostingController(rootView: swiftUIView).view!
         controller.frame = rect
         
+        // Устанавливаем фон контроллера представления и холста в прозрачный.
         controller.backgroundColor = .clear
         canvas.backgroundColor = .clear
         
+        // Рисуем иерархию представлений контроллера представления в контекст изображения.
         controller.drawHierarchy(
             in: CGRect(
                 origin: .zero,
@@ -77,20 +100,31 @@ final class DrawingViewModel: ObservableObject {
             ), afterScreenUpdates: true
         )
         
+        // Получаем сгенерированное изображение из контекста изображения.
         let generatedImage = UIGraphicsGetImageFromCurrentImageContext()
         
+        // Завершаем контекст изображения.
         UIGraphicsEndImageContext()
         
-        if let image = generatedImage {
+        // Если мы успешно сгенерировали изображение, сохраняем его в фотоальбом устройства.
+        if let image = generatedImage?.pngData() {
             UIImageWriteToSavedPhotosAlbum(
-                image,
+                UIImage(data: image)!,
                 nil,
                 nil,
                 nil
             )
-            self.message = "Картинка успешна сохранена!"
-            self.showAlert.toggle()
         }
         
+        self.messageSaveImage = "imageSavedSuccessfully".localized
+        self.showSuccessSaveAlert.toggle()
+        self.showingAlert.toggle()
+    }
+    
+    /// Этот метод вызывается, когда пользователь нажимает кнопку выхода из профиля
+    func exitProfile() {
+        self.messageExitProfile = "confirmProfileExit".localized
+        self.showExitProfileAlret.toggle()
+        self.showingAlert.toggle()
     }
 }

@@ -14,12 +14,12 @@ struct RegisterView: View {
     
     var body: some View {
         VStack {
-            Text("Создать новый аккаунт")
+            Text("createNewAccount".localized)
                 .font(.title2)
                 .bold()
-    
+            
             FirebaseTextField(
-                placeholder: "Эл.почта",
+                placeholder: "emailAdress".localized,
                 text: $viewModel.email
             )
             .textContentType(.emailAddress)
@@ -31,7 +31,7 @@ struct RegisterView: View {
             }
             
             FirebaseSecureTextField(
-                placeholder: "Пароль",
+                placeholder: "password".localized,
                 text: $viewModel.password,
                 showPassword: $viewModel.isShowPassword
             )
@@ -42,7 +42,7 @@ struct RegisterView: View {
             }
             
             FirebaseSecureTextField(
-                placeholder: "Повторите пароль",
+                placeholder: "replayPasssword".localized,
                 text: $viewModel.passwordCheck,
                 showPassword: $viewModel.isShowPasswordCheck
             )
@@ -52,7 +52,7 @@ struct RegisterView: View {
             Button {
                 viewModel.registerWithEmail()
             } label: {
-                Text("Зарегистрироваться")
+                Text("register".localized)
                     .padding()
                     .bold()
                     .foregroundColor(.white)
@@ -66,23 +66,23 @@ struct RegisterView: View {
             }
         }
         .padding()
-        .alert("Отлично!",
+        .alert("great".localized,
                isPresented: $viewModel.isSuccessfulCompletion) {
             Button {
                 viewModel.isSuccessfulCompletion = false
                 dismiss()
             } label: {
-                Text("OK")
+                Text("ok".localized)
             }
         } message: {
-            Text("Регистрация прошла успешно.")
+            Text("registrationSuccessful".localized)
         }
-        .alert("Ошибка!",
+        .alert("error".localized,
                isPresented: $viewModel.isShowError) {
             Button {
                 viewModel.isShowError = false
             } label: {
-                Text("OK")
+                Text("ok".localized)
             }
         } message: {
             Text(viewModel.localizedError)

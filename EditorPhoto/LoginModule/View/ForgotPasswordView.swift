@@ -14,12 +14,12 @@ struct ForgotPasswordView: View {
     
     var body: some View {
         VStack {
-            Text("Восстановить пароль")
+            Text("recoverPassword".localized)
                 .font(.title2)
                 .bold()
             
             FirebaseTextField(
-                placeholder: "Эл.почта",
+                placeholder: "emailAdress".localized,
                 text: $viewModel.email
             )
             .textContentType(.emailAddress)
@@ -28,7 +28,7 @@ struct ForgotPasswordView: View {
             Button {
                 viewModel.forgotPassword()
             } label: {
-                Text("Восстановить пароль")
+                Text("recoverPassword".localized)
                     .padding()
                     .bold()
                     .foregroundColor(.white)
@@ -41,26 +41,26 @@ struct ForgotPasswordView: View {
                     )
             }
         }
-        .alert("Ошибка!",
+        .alert("error".localized,
                isPresented: $viewModel.isShowError) {
             Button {
                 viewModel.isShowError = false
             } label: {
-                Text("OK")
+                Text("ok".localized)
             }
         } message: {
             Text(viewModel.localizedError)
         }
-        .alert("Успешно!",
+        .alert("successful".localized,
                isPresented: $viewModel.isSuccessfulCompletion) {
             Button {
                 viewModel.isSuccessfulCompletion = false
                 dismiss()
             } label: {
-                Text("OK")
+                Text("ok".localized)
             }
         } message: {
-            Text("Письмо для восстановления пароля было отправлено на вашу электронную почту.")
+            Text("passwordRecoveryEmailSent".localized)
         }
         .padding()
     }

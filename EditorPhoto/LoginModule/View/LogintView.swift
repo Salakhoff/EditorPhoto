@@ -30,7 +30,7 @@ struct LoginView: View {
             
             VStack {
                 FirebaseTextField(
-                    placeholder: "Эл.почта",
+                    placeholder: "emailAdress".localized,
                     text: $viewModel.email
                 )
                 .textContentType(.emailAddress)
@@ -42,14 +42,14 @@ struct LoginView: View {
                 }
                 
                 FirebaseSecureTextField(
-                    placeholder: "Пароль",
+                    placeholder: "password".localized,
                     text: $viewModel.password,
                     showPassword: $viewModel.isShowPassword
                 )
                 .focused($focus, equals: .password)
                 .submitLabel(.done)
                 
-                Button("Забыли пароль?") {
+                Button("forgotPassword".localized) {
                     viewModel.isShowResetPassword = true
                     
                 }
@@ -61,7 +61,7 @@ struct LoginView: View {
                 Button(role: .destructive) {
                     viewModel.signInWithEmail()
                 } label: {
-                    Text("Войти")
+                    Text("logIn".localized)
                         .bold()
                         .foregroundColor(.white)
                         .padding()
@@ -78,11 +78,11 @@ struct LoginView: View {
             Spacer()
             
             VStack {
-                Text("У вас нет аккаунта?")
+                Text("noAccount".localized)
                 Button(role: .destructive) {
                     viewModel.isShowRegistration = true
                 } label: {
-                    Text("Зарегистрироваться")
+                    Text("register".localized)
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
                 }
@@ -95,12 +95,12 @@ struct LoginView: View {
             .sheet(isPresented: $viewModel.isShowResetPassword) {
                 ForgotPasswordView()
             }
-            .alert("Ошибка!",
+            .alert("error".localized,
                    isPresented: $viewModel.isShowError) {
                 Button {
                     viewModel.isShowError = false
                 } label: {
-                    Text("OK")
+                    Text("ok".localized)
                 }
             } message: {
                 Text(viewModel.localizedError)

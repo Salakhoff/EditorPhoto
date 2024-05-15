@@ -17,4 +17,11 @@ extension String {
         let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
         return passwordPredicate.evaluate(with: self)
     }
+    
+    var localized: String {
+        NSLocalizedString(
+            self, 
+            comment: "\(self) could not be found in Localizable.strings"
+        )
+    }
 }

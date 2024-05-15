@@ -9,77 +9,20 @@ import Foundation
 import SwiftUI
 import PencilKit
 
+/// Представляет собой экран рисования
 struct DrawingScreen: View {
     @EnvironmentObject var viewModel: DrawingViewModel
     
     var body: some View {
         ZStack {
-            GeometryReader { proxy in
-                
-                let size = proxy.frame(in: .local)
-                
-                ZStack {
-                    CanvasView(
-                        canvas: $viewModel.canvas,
-                        imageData: $viewModel.imageData,
-                        toolPicker: $viewModel.toolPicker,
-                        rect: size.size
-                    )
-                    
-                    ForEach(viewModel.textBoxes) { box in
-                        Text(
-                            viewModel.textBoxes[
-                                viewModel.currentIndex
-                            ].id ==  box.id && viewModel.addNewBox ? "" : box.text)
-                        .font(.system(size: 30))
-                        .fontWeight(box.isBold ? .bold : .none)
-                        .foregroundStyle(box.textColor)
-                        .offset(box.offset)
-                        .gesture(
-                            DragGesture().onChanged({ value in
-                                let current = value.translation
-                                let lastOffset = box.lastOffset
-                                let newTranslation = CGSize(
-                                    width: lastOffset.width + current.width,
-                                    height: lastOffset.height + current.height)
-                                
-                                viewModel.textBoxes[getIndex(textBox: box)].offset = newTranslation
-                            })
-                            .onEnded({ value in
-                                viewModel.textBoxes[
-                                    getIndex(textBox: box)
-                                ].lastOffset = value.translation
-                            })
-                            
-                            .onLongPressGesture {
-                                viewModel.toolPicker.setVisible(
-                                    false,
-                                    forFirstResponder: viewModel.canvas
-                                )
-                                viewModel.canvas.resignFirstResponder()
-                                viewModel.currentIndex = getIndex(textBox: box)
-                                withAnimation {
-                                    viewModel.addNewBox = true
-                                    
-                                }
-                            }
-                        )
-                    }
-                }
-                .onAppear {
-                        if viewModel.rect == .zero {
-                            viewModel.rect = size
-                        }
-                    }
-            }
-            
+            GeometryReaderView(viewModel: viewModel)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     viewModel.saveImage()
                 } label: {
-                    Text("Сохранить")
+                    Text("save".localized)
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
@@ -98,51 +41,14 @@ struct DrawingScreen: View {
                     Image(systemName: "plus")
                 }
             }
+            ToolbarItem(
+                placement: .topBarLeading) {
+                    Button {
+                        viewModel.cancelImageEditing()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
         }
     }
-    
-    func getIndex(textBox: TextBox) -> Int {
-        let index = viewModel.textBoxes.firstIndex { box in
-            return textBox.id == box.id
-        }
-        
-        return index ?? 0
-    }
-}
-
-struct CanvasView: UIViewRepresentable {
-    
-    @Binding var canvas: PKCanvasView
-    @Binding var imageData: Data
-    @Binding var toolPicker: PKToolPicker
-    
-    var rect: CGSize
-    
-    func makeUIView(context: Context) -> PKCanvasView {
-        
-        canvas.isOpaque = false
-        canvas.backgroundColor = .clear
-        canvas.drawingPolicy = .anyInput
-        
-        if let image = UIImage(data: imageData) {
-            let imageView = UIImageView(image: image)
-            imageView.frame = CGRect(x: 0, y: 0, width: rect.width, height: rect.height)
-            imageView.contentMode = .scaleAspectFit
-            imageView.clipsToBounds = true
-            
-            let subView = canvas.subviews[0]
-            subView.addSubview(imageView)
-            subView.sendSubviewToBack(imageView)
-            
-            toolPicker.setVisible(true, forFirstResponder: canvas)
-            toolPicker.addObserver(canvas)
-            canvas.becomeFirstResponder()
-        }
-        
-        return canvas
-    }
-    
-    func updateUIView(_ uiView: PKCanvasView, context: Context) {
-    }
-    
 }
