@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170376E82BF40A7700A05E36 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170376E72BF40A7700A05E36 /* ImagePicker.swift */; };
+		170376EA2BF4119300A05E36 /* DrawingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170376E92BF4119300A05E36 /* DrawingViewModel.swift */; };
+		170376EC2BF4164C00A05E36 /* DrawingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170376EB2BF4164C00A05E36 /* DrawingScreen.swift */; };
+		170376EE2BF4226C00A05E36 /* TextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170376ED2BF4226C00A05E36 /* TextBox.swift */; };
 		173A206E2BF322C70015B275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A206D2BF322C70015B275 /* String + Extension.swift */; };
 		173A20702BF323870015B275 /* AppAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A206F2BF323870015B275 /* AppAuthError.swift */; };
 		173A20732BF326840015B275 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A20722BF326840015B275 /* HomeView.swift */; };
@@ -29,6 +33,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		170376E72BF40A7700A05E36 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		170376E92BF4119300A05E36 /* DrawingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewModel.swift; sourceTree = "<group>"; };
+		170376EB2BF4164C00A05E36 /* DrawingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingScreen.swift; sourceTree = "<group>"; };
+		170376ED2BF4226C00A05E36 /* TextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBox.swift; sourceTree = "<group>"; };
 		173A206D2BF322C70015B275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		173A206F2BF323870015B275 /* AppAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthError.swift; sourceTree = "<group>"; };
 		173A20722BF326840015B275 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -62,6 +70,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		170376E42BF409ED00A05E36 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				173A20722BF326840015B275 /* HomeView.swift */,
+				170376E72BF40A7700A05E36 /* ImagePicker.swift */,
+				170376EB2BF4164C00A05E36 /* DrawingScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		170376E52BF409F400A05E36 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				170376ED2BF4226C00A05E36 /* TextBox.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		170376E62BF409FC00A05E36 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				170376E92BF4119300A05E36 /* DrawingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		173A206C2BF322B30015B275 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -73,7 +107,9 @@
 		173A20712BF326770015B275 /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
-				173A20722BF326840015B275 /* HomeView.swift */,
+				170376E62BF409FC00A05E36 /* ViewModel */,
+				170376E52BF409F400A05E36 /* Model */,
+				170376E42BF409ED00A05E36 /* View */,
 			);
 			path = HomeModule;
 			sourceTree = "<group>";
@@ -249,13 +285,17 @@
 				17A89F9C2BF204DE00DC436E /* LogintView.swift in Sources */,
 				17E668D82BF24998009E2638 /* FirebaseSecureTextField.swift in Sources */,
 				173A20782BF32EFD0015B275 /* RegisterViewModel.swift in Sources */,
+				170376EC2BF4164C00A05E36 /* DrawingScreen.swift in Sources */,
 				173A20702BF323870015B275 /* AppAuthError.swift in Sources */,
 				173A20822BF370770015B275 /* FocusableField.swift in Sources */,
 				173A206E2BF322C70015B275 /* String + Extension.swift in Sources */,
 				17E668D02BF21468009E2638 /* FirebaseTextField.swift in Sources */,
+				170376EE2BF4226C00A05E36 /* TextBox.swift in Sources */,
+				170376EA2BF4119300A05E36 /* DrawingViewModel.swift in Sources */,
 				17E668E22BF256A3009E2638 /* AuthService.swift in Sources */,
 				173A20852BF39A290015B275 /* ForgotPasswordViewModel.swift in Sources */,
 				17A89F9A2BF204DE00DC436E /* EditorPhotoApp.swift in Sources */,
+				170376E82BF40A7700A05E36 /* ImagePicker.swift in Sources */,
 				173A207C2BF33AC60015B275 /* ForgotPasswordView.swift in Sources */,
 				17E668CD2BF207F9009E2638 /* LoginViewModel.swift in Sources */,
 			);
@@ -394,6 +434,7 @@
 				DEVELOPMENT_TEAM = 6CZNS4ZZ97;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +469,7 @@
 				DEVELOPMENT_TEAM = 6CZNS4ZZ97;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
