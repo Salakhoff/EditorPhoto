@@ -1,0 +1,3 @@
+![gif](https://github.com/Salakhoff/EditorPhoto/assets/137751906/e8cfbcb4-ca8a-4e70-900c-533754706c1b)
+
+Описание будет позже...
