@@ -7,6 +7,8 @@
 
 import SwiftUI
 import PencilKit
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 class DrawingViewModel: ObservableObject {
     
@@ -20,12 +22,12 @@ class DrawingViewModel: ObservableObject {
     @Published var messageSaveImage: String = ""
     @Published var messageExitProfile: String = ""
     @Published var currentIndex: Int = 0
-    @Published var showImagePicker = false
-    @Published var showSuccessSaveAlert = false
-    @Published var showExitProfileAlret = false
-    @Published var showingAlert = false
-    @Published var addNewBox = false
-
+    @Published var isShowImagePicker = false
+    @Published var isShowSuccessSaveAlert = false
+    @Published var isShowExitProfileAlret = false
+    @Published var isShowingAlert = false
+    @Published var isAddNewBox = false
+    
     /// Эта функция вызывается, когда пользователь полностью закончил работу с редактированием изображения и хочет вернуться к исходному состоянию.
     func cancelImageEditing() {
         // Устанавливаем `imageData` в пустые данные. Это эффективно удаляет текущее изображение.
@@ -48,7 +50,7 @@ class DrawingViewModel: ObservableObject {
         // С анимацией устанавливаем `addNewBox` в `false`.
         // Это скрывает текстовое поле для редактирования.
         withAnimation {
-            addNewBox = false
+            isAddNewBox = false
         }
         
         // Если текущий текстовый блок не был добавлен (то есть он был только что создан, но не сохранен),
@@ -76,7 +78,7 @@ class DrawingViewModel: ObservableObject {
                 Text(
                     textBoxes[
                         currentIndex
-                    ].id ==  box.id && addNewBox ? "" : box.text)
+                    ].id ==  box.id && isAddNewBox ? "" : box.text)
                 .font(.system(size: 30))
                 .fontWeight(box.isBold ? .bold : .none)
                 .foregroundStyle(box.textColor)
@@ -117,14 +119,14 @@ class DrawingViewModel: ObservableObject {
         }
         
         self.messageSaveImage = "imageSavedSuccessfully".localized
-        self.showSuccessSaveAlert.toggle()
-        self.showingAlert.toggle()
+        self.isShowSuccessSaveAlert.toggle()
+        self.isShowingAlert.toggle()
     }
     
     /// Этот метод вызывается, когда пользователь нажимает кнопку выхода из профиля
     func exitProfile() {
         self.messageExitProfile = "confirmProfileExit".localized
-        self.showExitProfileAlret.toggle()
-        self.showingAlert.toggle()
+        self.isShowExitProfileAlret.toggle()
+        self.isShowingAlert.toggle()
     }
 }

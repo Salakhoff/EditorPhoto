@@ -19,45 +19,40 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             NavigationView {
-                VStack() {
-                    if UIImage(data: viewModel.imageData) != nil {
-                        DrawingScreen()
-                            .environmentObject(viewModel)
-                    } else {
-                        MenuView(viewModel: viewModel)
-                            .padding()
-                    }
+                if UIImage(data: viewModel.imageData) != nil {
+                    DrawingScreen()
+                        .environmentObject(viewModel)
+                } else {
+                    MenuView(viewModel: viewModel)
+                        .padding()
                 }
-                .navigationTitle("editor".localized)
             }
-            if viewModel.addNewBox {
+            .navigationTitle("editor".localized)
+            if viewModel.isAddNewBox {
                 AddNewBoxView(viewModel: viewModel)
             }
         }
-        .sheet(isPresented: $viewModel.showImagePicker) {
+        .sheet(isPresented: $viewModel.isShowImagePicker) {
             ImagePicker(
-                isShowPicker: $viewModel.showImagePicker,
+                isShowPicker: $viewModel.isShowImagePicker,
                 imageData: $viewModel.imageData
             )
             .ignoresSafeArea()
         }
-        .alert(isPresented: $viewModel.showingAlert) {
-            if viewModel.showExitProfileAlret {
-                return Alert(
-                    title: Text(viewModel.messageExitProfile),
-                    primaryButton: .default(Text("yes".localized),
-                    action: { _ = AuthService.shared.signOut() }),
-                    secondaryButton: .default(Text("no".localized))
+        .alert(isPresented: $viewModel.isShowingAlert) {
+            if viewModel.isShowExitProfileAlret {
+                return Alert(title: Text(viewModel.messageExitProfile),
+                             primaryButton: .default(Text("yes".localized),
+                                                     action: { _ = AuthService.shared.signOut() }),
+                             secondaryButton: .default(Text("no".localized))
                 )
-            } else if viewModel.showSuccessSaveAlert {
-                return Alert(
-                    title: Text(viewModel.messageSaveImage),
-                    dismissButton: .default(Text("ok".localized))
+            } else if viewModel.isShowSuccessSaveAlert {
+                return Alert(title: Text(viewModel.messageSaveImage),
+                             dismissButton: .default(Text("ok".localized))
                 )
             } else {
-                return Alert(
-                    title: Text("Ошибка..."),
-                    dismissButton: .default(Text("ok".localized))
+                return Alert(title: Text("Ошибка..."),
+                             dismissButton: .default(Text("ok".localized))
                 )
             }
         }

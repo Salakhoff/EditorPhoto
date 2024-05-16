@@ -11,44 +11,62 @@ import PencilKit
 
 /// Представляет собой экран рисования
 struct DrawingScreen: View {
+    
+    // MARK: Properties
+    
     @EnvironmentObject var viewModel: DrawingViewModel
+    
+    // MARK: Body
     
     var body: some View {
         ZStack {
-            GeometryReaderView(viewModel: viewModel)
+            GeometryReaderView()
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    viewModel.saveImage()
-                } label: {
-                    Text("save".localized)
-                }
+                saveButton
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    viewModel.textBoxes.append(TextBox())
-                    viewModel.currentIndex = viewModel.textBoxes.count - 1
-                    withAnimation {
-                        viewModel.addNewBox.toggle()
-                    }
-                    viewModel.toolPicker.setVisible(
-                        false,
-                        forFirstResponder: viewModel.canvas
-                    )
-                    viewModel.canvas.resignFirstResponder()
-                } label: {
-                    Image(systemName: "plus")
-                }
+                plusButton
             }
-            ToolbarItem(
-                placement: .topBarLeading) {
-                    Button {
-                        viewModel.cancelImageEditing()
-                    } label: {
-                        Image(systemName: "xmark")
-                    }
-                }
+            ToolbarItem(placement: .topBarLeading) {
+                cancelButton
+            }
+        }
+    }
+    
+    // MARK: Some Views
+    
+    private var saveButton: some View {
+        Button {
+            viewModel.saveImage()
+        } label: {
+            Text("save".localized)
+        }
+    }
+    
+    private var plusButton: some View {
+        Button {
+            viewModel.textBoxes.append(TextBox())
+            viewModel.currentIndex = viewModel.textBoxes.count - 1
+            withAnimation {
+                viewModel.isAddNewBox.toggle()
+            }
+            viewModel.toolPicker.setVisible(
+                false,
+                forFirstResponder: viewModel.canvas
+            )
+            viewModel.canvas.resignFirstResponder()
+        } label: {
+            Image(systemName: "plus")
+        }
+    }
+    
+    private var cancelButton: some View {
+        Button {
+            viewModel.cancelImageEditing()
+        } label: {
+            Image(systemName: "xmark")
         }
     }
 }

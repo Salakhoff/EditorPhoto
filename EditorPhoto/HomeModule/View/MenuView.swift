@@ -9,11 +9,26 @@ import SwiftUI
 
 /// Представляет собой главное меню в приложении.
 struct MenuView: View {
+    
+    // MARK: Properties
+    
     @ObservedObject var viewModel: DrawingViewModel
     
+    // MARK: Body
+    
     var body: some View {
+        photoButton.toolbar {
+            ToolbarItem(placement:.topBarTrailing) {
+                exitProfileButton
+            }
+        }
+    }
+    
+    // MARK: Some View
+    
+    private var photoButton: some View {
         Button(role: .destructive) {
-            viewModel.showImagePicker = true
+            viewModel.isShowImagePicker = true
         } label: {
             Text("processPhoto".localized)
                 .bold()
@@ -25,15 +40,13 @@ struct MenuView: View {
                         .fill(Color.blue)
                 )
         }
-        .toolbar {
-            ToolbarItem(
-                placement: .topBarTrailing) {
-                    Button(role: .destructive) {
-                        viewModel.exitProfile()
-                    } label: {
-                        Image(systemName: "arrow.forward.circle.fill")
-                    }
-                }
+    }
+    
+    private var exitProfileButton: some View {
+        Button(role: .destructive) {
+            viewModel.exitProfile()
+        } label: {
+            Image(systemName: "arrow.forward.circle.fill")
         }
     }
 }

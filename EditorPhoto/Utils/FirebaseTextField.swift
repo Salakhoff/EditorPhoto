@@ -9,8 +9,12 @@ import SwiftUI
 
 struct FirebaseTextField: View {
     
+    // MARK: Properties
+    
     var placeholder: String
     @Binding var text: String
+    
+    // MARK: Body
     
     var body: some View {
         TextField(placeholder, text: $text)

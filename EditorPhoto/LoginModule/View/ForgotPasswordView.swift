@@ -8,38 +8,19 @@
 import SwiftUI
 
 struct ForgotPasswordView: View {
-    @Environment(\.dismiss) var dismiss
     
+    // MARK: Properties
+    
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel = ForgotPasswordViewModel()
+    
+    // MARK: Body
     
     var body: some View {
         VStack {
-            Text("recoverPassword".localized)
-                .font(.title2)
-                .bold()
-            
-            FirebaseTextField(
-                placeholder: "emailAdress".localized,
-                text: $viewModel.email
-            )
-            .textContentType(.emailAddress)
-            .keyboardType(.emailAddress)
-            
-            Button {
-                viewModel.forgotPassword()
-            } label: {
-                Text("recoverPassword".localized)
-                    .padding()
-                    .bold()
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(height: 55)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.blue)
-                    )
-            }
+            recoverPasswordText
+            emailTextField
+            recoverPasswordButton
         }
         .alert("error".localized,
                isPresented: $viewModel.isShowError) {
@@ -51,6 +32,7 @@ struct ForgotPasswordView: View {
         } message: {
             Text(viewModel.localizedError)
         }
+        
         .alert("successful".localized,
                isPresented: $viewModel.isSuccessfulCompletion) {
             Button {
@@ -63,6 +45,41 @@ struct ForgotPasswordView: View {
             Text("passwordRecoveryEmailSent".localized)
         }
         .padding()
+    }
+    
+    // MARK: Some Views
+    
+    private var recoverPasswordText: some View {
+        Text("recoverPassword".localized)
+            .font(.title2)
+            .bold()
+    }
+    
+    private var emailTextField: some View {
+        FirebaseTextField(
+            placeholder: "emailAdress".localized,
+            text: $viewModel.email
+        )
+        .textContentType(.emailAddress)
+        .keyboardType(.emailAddress)
+    }
+    
+    private var recoverPasswordButton: some View {
+        Button {
+            viewModel.forgotPassword()
+        } label: {
+            Text("recoverPassword".localized)
+                .padding()
+                .bold()
+                .foregroundColor(.white)
+                .padding()
+                .frame(height: 55)
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.blue)
+                )
+        }
     }
 }
 
