@@ -35,6 +35,9 @@
 		17E668DD2BF25438009E2638 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 17E668DC2BF25438009E2638 /* FirebaseAuth */; };
 		17E668DF2BF25438009E2638 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 17E668DE2BF25438009E2638 /* FirebaseAuthCombine-Community */; };
 		17E668E22BF256A3009E2638 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E668E12BF256A3009E2638 /* AuthService.swift */; };
+		17EE77C12BF656210055730C /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 17EE77C02BF656210055730C /* GoogleSignIn */; };
+		17EE77C32BF656210055730C /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 17EE77C22BF656210055730C /* GoogleSignInSwift */; };
+		17EE77C62BF6598E0055730C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17EE77C52BF6598E0055730C /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +69,8 @@
 		17E668D72BF24998009E2638 /* FirebaseSecureTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSecureTextField.swift; sourceTree = "<group>"; };
 		17E668D92BF253BE009E2638 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		17E668E12BF256A3009E2638 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		17EE77C42BF657680055730C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		17EE77C52BF6598E0055730C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +80,8 @@
 			files = (
 				17E668DD2BF25438009E2638 /* FirebaseAuth in Frameworks */,
 				17E668DF2BF25438009E2638 /* FirebaseAuthCombine-Community in Frameworks */,
+				17EE77C12BF656210055730C /* GoogleSignIn in Frameworks */,
+				17EE77C32BF656210055730C /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +186,7 @@
 		17A89F982BF204DE00DC436E /* EditorPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				17EE77C42BF657680055730C /* Info.plist */,
 				17A89F992BF204DE00DC436E /* EditorPhotoApp.swift */,
 				17E668C92BF20673009E2638 /* LoginModule */,
 				173A20712BF326770015B275 /* HomeModule */,
@@ -188,6 +196,7 @@
 				17A89F9F2BF204E000DC436E /* Preview Content */,
 				17E668D92BF253BE009E2638 /* GoogleService-Info.plist */,
 				17A89F9D2BF204E000DC436E /* Assets.xcassets */,
+				17EE77C52BF6598E0055730C /* Launch Screen.storyboard */,
 			);
 			path = EditorPhoto;
 			sourceTree = "<group>";
@@ -237,6 +246,8 @@
 			packageProductDependencies = (
 				17E668DC2BF25438009E2638 /* FirebaseAuth */,
 				17E668DE2BF25438009E2638 /* FirebaseAuthCombine-Community */,
+				17EE77C02BF656210055730C /* GoogleSignIn */,
+				17EE77C22BF656210055730C /* GoogleSignInSwift */,
 			);
 			productName = EditorPhoto;
 			productReference = 17A89F962BF204DE00DC436E /* EditorPhoto.app */;
@@ -269,6 +280,7 @@
 			mainGroup = 17A89F8D2BF204DE00DC436E;
 			packageReferences = (
 				17E668DB2BF25437009E2638 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				17EE77BF2BF656210055730C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 17A89F972BF204DE00DC436E /* Products */;
 			projectDirPath = "";
@@ -287,6 +299,7 @@
 				177C4D432BF5CAF5002134FE /* Localizable.strings in Resources */,
 				17A89FA12BF204E000DC436E /* Preview Assets.xcassets in Resources */,
 				17A89F9E2BF204E000DC436E /* Assets.xcassets in Resources */,
+				17EE77C62BF6598E0055730C /* Launch Screen.storyboard in Resources */,
 				17E668DA2BF253BE009E2638 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,10 +481,12 @@
 				DEVELOPMENT_TEAM = 6CZNS4ZZ97;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EditorPhoto/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -503,10 +518,12 @@
 				DEVELOPMENT_TEAM = 6CZNS4ZZ97;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EditorPhoto/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -559,6 +576,14 @@
 				minimumVersion = 10.25.0;
 			};
 		};
+		17EE77BF2BF656210055730C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -571,6 +596,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 17E668DB2BF25437009E2638 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAuthCombine-Community";
+		};
+		17EE77C02BF656210055730C /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17EE77BF2BF656210055730C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		17EE77C22BF656210055730C /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17EE77BF2BF656210055730C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
