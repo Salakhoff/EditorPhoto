@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct EditorPhotoApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if AuthService.shared.currentUser != nil {
+                HomeView()
+            } else {
+                LoginView()
+            }
         }
     }
 }
