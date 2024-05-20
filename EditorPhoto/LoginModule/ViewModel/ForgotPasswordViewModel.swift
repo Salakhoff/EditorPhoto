@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import Firebase
 
-final class ForgotPasswordViewModel: ObservableObject {
+class ForgotPasswordViewModel: ObservableObject {
     
     // MARK: Published
     
@@ -27,7 +27,8 @@ final class ForgotPasswordViewModel: ObservableObject {
     init() {
         isFormValidPublisher
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self]completion in
+                guard let self else { return }
                 switch completion {
                 case .failure(let error):
                     self.localizedError = error.localizedDescription
@@ -51,7 +52,8 @@ final class ForgotPasswordViewModel: ObservableObject {
                 AuthService.shared.resetPassword(email: self.email)
             }
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self else { return }
                 switch completion {
                 case .failure(let error):
                     if let authError = error as? AppAuthError {
@@ -76,5 +78,9 @@ final class ForgotPasswordViewModel: ObservableObject {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    deinit {
+        print("ForgotPasswordViewModel DELETED")
     }
 }

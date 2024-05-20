@@ -129,4 +129,8 @@ class DrawingViewModel: ObservableObject {
         self.isShowExitProfileAlret.toggle()
         self.isShowingAlert.toggle()
     }
+    
+    deinit {
+        print("DrawingViewModel")
+    }
 }
