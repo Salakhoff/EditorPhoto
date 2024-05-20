@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class RegisterViewModel: ObservableObject {
+class RegisterViewModel: ObservableObject {
     
     // MARK: Published
     
@@ -30,7 +30,8 @@ final class RegisterViewModel: ObservableObject {
     init() {
         isFormValidPublisher
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self else { return }
                 switch completion {
                 case .failure(let error):
                     self.localizedError = error.localizedDescription
@@ -62,7 +63,8 @@ final class RegisterViewModel: ObservableObject {
                 AuthService.shared.registerWithEmail(email: self.email, password: self.password)
             }
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self else { return }
                 switch completion {
                 case .failure(let error):
                     if let authError = error as? AppAuthError {
@@ -92,5 +94,9 @@ final class RegisterViewModel: ObservableObject {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    deinit {
+        print("RegisterViewModel DELETED")
     }
 }

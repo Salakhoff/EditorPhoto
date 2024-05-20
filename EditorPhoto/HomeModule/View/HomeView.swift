@@ -21,17 +21,18 @@ struct HomeView: View {
             NavigationView {
                 if UIImage(data: viewModel.imageData) != nil {
                     DrawingScreen()
-                        .environmentObject(viewModel)
                 } else {
-                    MenuView(viewModel: viewModel)
+                    MenuView()
                         .padding()
                 }
             }
             .navigationTitle("editor".localized)
+            
             if viewModel.isAddNewBox {
-                AddNewBoxView(viewModel: viewModel)
+                AddNewBoxView()
             }
         }
+        .environmentObject(viewModel)
         .sheet(isPresented: $viewModel.isShowImagePicker) {
             ImagePicker(
                 isShowPicker: $viewModel.isShowImagePicker,

@@ -12,7 +12,7 @@ struct AddNewBoxView: View {
     
     // MARK: Properties
     
-    @ObservedObject var viewModel: DrawingViewModel
+    @EnvironmentObject var viewModel: DrawingViewModel
     
     // MARK: Body
     

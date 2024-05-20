@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class LoginViewModel: ObservableObject {
+class LoginViewModel: ObservableObject {
     
     // MARK: Published
     
@@ -29,7 +29,8 @@ final class LoginViewModel: ObservableObject {
     init() {
         isFormValidPublisher
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self else { return }
                 switch completion {
                 case .failure(let error):
                     self.isShowError = true
@@ -53,9 +54,10 @@ final class LoginViewModel: ObservableObject {
     }
     
     // MARK: - Methods
-
+    
     func validateLoginForm() -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { promise in
+        return Future<Void, Error> { [weak self] promise in
+            guard let self else { return }
             if !self.email.isValidEmail() {
                 promise(.failure(AppAuthError.invalidEmail))
             } else if !self.password.isValidPassword() {
@@ -73,7 +75,8 @@ final class LoginViewModel: ObservableObject {
                 AuthService.shared.signInWithEmail(email: self.email, password: self.password)
             }
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self else { return }
                 switch completion {
                 case .failure(let error):
                     if let authError = error as? AppAuthError {
@@ -87,5 +90,9 @@ final class LoginViewModel: ObservableObject {
                 }
             } receiveValue: { _ in }
             .store(in: &cancellables)
+    }
+    
+    deinit {
+        print("LoginViewModel DELETED")
     }
 }
